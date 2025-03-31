@@ -17,4 +17,12 @@ public class DerivationNode {
         this.children.add(child);
     }
 
+    public List<DerivationNode> getChildren() {
+        return children;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
 }

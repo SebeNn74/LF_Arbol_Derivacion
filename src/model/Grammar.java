@@ -36,4 +36,15 @@ public class Grammar {
         return nonTerminals.contains(symbol);
     }
 
+    public Set<String> getTerminals() {
+        return terminals;
+    }
+
+    public Set<String> getNonTerminals() {
+        return nonTerminals;
+    }
+
+    public String getStartSymbol() {
+        return startSymbol;
+    }
 }
