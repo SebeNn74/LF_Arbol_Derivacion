@@ -1,6 +1,8 @@
-package view;
+package main.java.view;
 
-import model.GProduction;
+import main.java.model.GProduction;
+import main.java.view.AppFrame;
+
 
 import javax.swing.*;
 import java.util.ArrayList;
