@@ -13,8 +13,8 @@ public class Presenter implements ActionListener {
     private GrammarChecker grammarChecker;
 
     public Presenter() {
-        view = new View(this);
-
+        view = new View();
+        view.setPresenter(this);
         Set<String> terminals = new HashSet<>(Arrays.asList("a", "b"));
         Set<String> nonTerminals = new HashSet<>(Arrays.asList("S", "A", "B"));
         String startSymbol = "S";
@@ -46,11 +46,10 @@ public class Presenter implements ActionListener {
 
     private void checkWord() {
         String wordToCheck = view.getWordToCheck();
+        System.out.println("Verificando la palabra: " + wordToCheck);
 
         if (grammarChecker.checkWord(wordToCheck)) {
             String result = "La palabra pertenece al lenguaje.\n";
-
-            // Mostrar árboles de derivación
             DerivationNode particularTree = grammarChecker.getParticularDerivationTree();
             if (particularTree != null) {
                 result += "Árbol de derivación particular:\n" + printTree(particularTree) + "\n";
@@ -70,7 +69,6 @@ public class Presenter implements ActionListener {
                 view.showDerivationTree(printTree(generalTree));
             }
 
-            // Actualizar la información del lenguaje con datos más reales
             String languageInfo = String.format("Lenguaje: %s\nSímbolos terminales: %s\nSímbolos no terminales: %s",
                     grammarChecker.getGrammar().getStartSymbol(),
                     grammarChecker.getGrammar().getTerminals(),

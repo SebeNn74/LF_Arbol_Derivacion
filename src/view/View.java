@@ -13,13 +13,12 @@ public class View extends JFrame {
     private JLabel languageLabel;
     private JLabel wordLabel;
 
-    public View(ActionListener listener) {
+    public View() {
         setTitle("Verificador de Lenguaje");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         wordLabel = new JLabel("Ingrese la palabra a verificar:");
@@ -51,6 +50,7 @@ public class View extends JFrame {
         languageLabel = new JLabel("Lenguaje: L(G), Gramática S", JLabel.CENTER);
         bottomPanel.add(languageLabel, BorderLayout.SOUTH);
         add(bottomPanel, BorderLayout.SOUTH);
+        setVisible(true);
     }
 
     public String getWordToCheck() {
@@ -72,4 +72,5 @@ public class View extends JFrame {
     public void setPresenter(ActionListener presenter) {
         verifyButton.addActionListener(presenter);
     }
+
 }
