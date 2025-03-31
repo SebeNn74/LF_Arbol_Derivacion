@@ -39,11 +39,11 @@ public class Parser {
             //Si No es terminal
         } else if (grammar.isNonTerminal(symbol)) {
             // Probar cada una de sus producciones
-            List<Production> possibleProductions = grammar.getProductionsFor(symbol);
+            List<GProduction> possibleGProductions = grammar.getProductionsFor(symbol);
             int originalTokenIndex = currentTokenIndex; // Guardar estado para backtracking
 
-            for (Production p : possibleProductions) {
-                currentNode.appliedProduction = p; // Tentativamente aplica esta producción
+            for (GProduction p : possibleGProductions) {
+                currentNode.appliedGProduction = p; // Tentativamente aplica esta producción
                 currentNode.children.clear(); // Limpiar hijos de intentos anteriores
                 boolean productionSuccess = true;
                 currentTokenIndex = originalTokenIndex; // Resetear índice para esta producción
@@ -65,7 +65,7 @@ public class Parser {
                     currentNode.children.addAll(potentialChildren);
                     return true;
                 }
-                currentNode.appliedProduction = null;
+                currentNode.appliedGProduction = null;
                 currentNode.children.clear();
             }
 

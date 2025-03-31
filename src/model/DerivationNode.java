@@ -6,7 +6,7 @@ import java.util.List;
 public class DerivationNode {
     String symbol;
     List<DerivationNode> children;
-    Production appliedProduction;
+    GProduction appliedGProduction;
 
     public DerivationNode(String symbol) {
         this.symbol = symbol;

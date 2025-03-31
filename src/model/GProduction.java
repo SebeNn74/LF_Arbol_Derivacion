@@ -2,11 +2,11 @@ package model;
 
 import java.util.List;
 
-public class Production {
+public class GProduction {
     String nonTerminal; // Lado izquierdo
     List<String> expansion; // Lado derecho (lista de terminales y no terminales)
 
-    public Production(String nonTerminal, List<String> expansion) {
+    public GProduction(String nonTerminal, List<String> expansion) {
         this.nonTerminal = nonTerminal;
         this.expansion = expansion;
     }

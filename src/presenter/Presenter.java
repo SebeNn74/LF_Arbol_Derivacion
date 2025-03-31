@@ -14,17 +14,16 @@ public class Presenter implements ActionListener {
 
     public Presenter() {
         view = new View();
-        view.setPresenter(this);
         Set<String> terminals = new HashSet<>(Arrays.asList("a", "b"));
         Set<String> nonTerminals = new HashSet<>(Arrays.asList("S", "A", "B"));
         String startSymbol = "S";
 
-        List<Production> productions = new ArrayList<>();
-        productions.add(new Production("S", Arrays.asList("a", "S", "b")));
-        productions.add(new Production("S", Arrays.asList("A")));
-        productions.add(new Production("A", Arrays.asList("a")));
+        ArrayList<GProduction> GProductions = new ArrayList<>();
+        GProductions.add(new GProduction("S", Arrays.asList("a", "S", "b")));
+        GProductions.add(new GProduction("S", Arrays.asList("A")));
+        GProductions.add(new GProduction("A", Arrays.asList("a")));
 
-        Grammar grammar = new Grammar(terminals, nonTerminals, startSymbol, productions);
+        Grammar grammar = new Grammar(terminals, nonTerminals, startSymbol, GProductions);
         grammarChecker = new GrammarChecker(grammar);
     }
 
@@ -41,55 +40,23 @@ public class Presenter implements ActionListener {
     }
 
     private void createGrammar() {
-
+        Grammar grammar = new Grammar();
+        grammar.setTerminals(view.getTerminals());
+        grammar.setNonTerminals(view.getNonTerminals());
+        grammar.setStartSymbol(view.getStartSymbol());
+        grammar.setGProductions(view.getProductions());
+        grammar.indexProductions();
     }
 
     private void checkWord() {
-        String wordToCheck = view.getWordToCheck();
-        System.out.println("Verificando la palabra: " + wordToCheck);
-
+        String wordToCheck = view.getCheckWord();
         if (grammarChecker.checkWord(wordToCheck)) {
-            String result = "La palabra pertenece al lenguaje.\n";
-            DerivationNode particularTree = grammarChecker.getParticularDerivationTree();
-            if (particularTree != null) {
-                result += "Árbol de derivación particular:\n" + printTree(particularTree) + "\n";
-            }
-
-            DerivationNode generalTree = grammarChecker.getGeneralDerivationTree();
-            if (generalTree != null) {
-                result += "Árbol de derivación general:\n" + printTree(generalTree);
-            }
-
-            view.showResult(result);
-
-            if (particularTree != null) {
-                view.showDerivationTree(printTree(particularTree));
-            }
-            if (generalTree != null) {
-                view.showDerivationTree(printTree(generalTree));
-            }
-
-            String languageInfo = String.format("Lenguaje: %s\nSímbolos terminales: %s\nSímbolos no terminales: %s",
-                    grammarChecker.getGrammar().getStartSymbol(),
-                    grammarChecker.getGrammar().getTerminals(),
-                    grammarChecker.getGrammar().getNonTerminals());
-            view.setLanguageInfo(languageInfo);
+            //La palabra pertenece
+            //Muestra arbol de derivación particular de la palabra en horizontal
+            //Muestra arbol de derivación general de la gramatica
+            //Muestra relación de pertenencia o no pertenencia de la palabra
         } else {
-            view.showResult("La palabra NO pertenece al lenguaje.");
-            view.setLanguageInfo("Lenguaje: G (Ejemplo)");
-        }
-    }
-
-    private String printTree(DerivationNode node) {
-        StringBuilder builder = new StringBuilder();
-        printTreeRecursive(node, builder, 0);
-        return builder.toString();
-    }
-
-    private void printTreeRecursive(DerivationNode node, StringBuilder builder, int depth) {
-        builder.append("  ".repeat(depth)).append(node.getSymbol()).append("\n");
-        for (DerivationNode child : node.getChildren()) {
-            printTreeRecursive(child, builder, depth + 1);
+            //La palabra no pertenece
         }
     }
 

@@ -6,25 +6,32 @@ public class Grammar {
     Set<String> terminals;
     Set<String> nonTerminals;
     String startSymbol;
-    List<Production> productions;
-    Map<String, List<Production>> productionsMap;
+    ArrayList<GProduction> GProductions;
+    Map<String, List<GProduction>> productionsMap;
 
-    public Grammar(Set<String> terminals, Set<String> nonTerminals, String startSymbol, List<Production> productions) {
+    public Grammar(){
+        terminals = new HashSet<>();
+        nonTerminals = new HashSet<>();
+        startSymbol = "";
+        GProductions = new ArrayList<>();
+    }
+
+    public Grammar(Set<String> terminals, Set<String> nonTerminals, String startSymbol, ArrayList<GProduction> GProductions) {
         this.terminals = terminals;
         this.nonTerminals = nonTerminals;
         this.startSymbol = startSymbol;
-        this.productions = productions;
+        this.GProductions = GProductions;
         this.productionsMap = new HashMap<>();
         indexProductions();
     }
 
-    private void indexProductions() {
-        for (Production p : productions) {
+    public void indexProductions() {
+        for (GProduction p : GProductions) {
             productionsMap.computeIfAbsent(p.nonTerminal, k -> new ArrayList<>()).add(p);
         }
     }
 
-    public List<Production> getProductionsFor(String nonTerminal) {
+    public List<GProduction> getProductionsFor(String nonTerminal) {
         return productionsMap.getOrDefault(nonTerminal, Collections.emptyList());
     }
 
@@ -46,5 +53,21 @@ public class Grammar {
 
     public String getStartSymbol() {
         return startSymbol;
+    }
+
+    public void setTerminals(Set<String> terminals) {
+        this.terminals = terminals;
+    }
+
+    public void setNonTerminals(Set<String> nonTerminals) {
+        this.nonTerminals = nonTerminals;
+    }
+
+    public void setStartSymbol(String startSymbol) {
+        this.startSymbol = startSymbol;
+    }
+
+    public void setGProductions(ArrayList<GProduction> GProductions) {
+        this.GProductions = GProductions;
     }
 }
