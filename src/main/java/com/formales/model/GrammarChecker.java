@@ -1,5 +1,6 @@
 package com.formales.model;
 
+import java.util.List;
 import java.util.Set;
 
 public class GrammarChecker {
@@ -8,8 +9,8 @@ public class GrammarChecker {
     private Parser parser;
     private boolean belongs;
 
-    public GrammarChecker(Grammar gramar) {
-        this.grammar = gramar;
+    public GrammarChecker() {
+        this.grammar = null;
         parser = new Parser();
         belongs = false;
     }
@@ -19,12 +20,22 @@ public class GrammarChecker {
         return belongs;
     }
 
-    public DerivationNode getParticularDerivationTree() {
-        return belongs ? parser.getDerivationTree() : null;
+    public String getRelationshipBelonging(){
+        return belongs ? "W ∈ L(G) : Pertenece" : "W ∉ L(G) : No pertenece";
     }
 
-    public DerivationNode getGeneralDerivationTree() {
-        return belongs ? parser.getDerivationTree() : null;
+    public String getParticularDerivationTree() {
+        List<List<String>> sequenceSteps = parser.getLeftmostDerivationSequenceSteps();
+        if (!sequenceSteps.isEmpty()) {
+            return Parser.formatDerivationSequence(sequenceSteps);
+        } else {
+            System.out.println("Error: La palabra pertenece pero no se pudo reconstruir la secuencia de derivación.");
+        }
+        return "";
+    }
+
+    public String getGeneralDerivationTree() {
+        return grammar.generateExplorationTreeString();
     }
 
     public void setGrammar(Grammar grammar) {
@@ -35,15 +46,4 @@ public class GrammarChecker {
         return grammar;
     }
 
-    public Set<String> getTerminals() {
-        return grammar.getTerminals();
-    }
-
-    public Set<String> getNonTerminals() {
-        return grammar.getNonTerminals();
-    }
-
-    public String getStartSymbol() {
-        return grammar.getStartSymbol();
-    }
 }

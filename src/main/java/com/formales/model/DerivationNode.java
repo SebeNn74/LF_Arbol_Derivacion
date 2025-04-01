@@ -6,23 +6,26 @@ import java.util.List;
 public class DerivationNode {
     String symbol;
     List<DerivationNode> children;
-    GProduction appliedGProduction;
+    Production appliedProduction;
 
     public DerivationNode(String symbol) {
         this.symbol = symbol;
         this.children = new ArrayList<>();
     }
 
-    public void addChild(DerivationNode child) {
-        this.children.add(child);
+    public List<Production> getAppliedProductionSequence() {
+        List<Production> sequence = new ArrayList<>();
+        collectProductionsPreOrder(sequence);
+        return sequence;
     }
 
-    public List<DerivationNode> getChildren() {
-        return children;
-    }
-
-    public String getSymbol() {
-        return symbol;
+    private void collectProductionsPreOrder(List<Production> sequenceList) {
+        if (this.appliedProduction != null) {
+            sequenceList.add(this.appliedProduction);
+        }
+        for (DerivationNode child : children) {
+            child.collectProductionsPreOrder(sequenceList);
+        }
     }
 
 }

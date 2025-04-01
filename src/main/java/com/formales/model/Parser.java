@@ -39,11 +39,11 @@ public class Parser {
             //Si No es terminal
         } else if (grammar.isNonTerminal(symbol)) {
             // Probar cada una de sus producciones
-            List<GProduction> possibleGProductions = grammar.getProductionsFor(symbol);
+            List<Production> possibleProductions = grammar.getProductionsFor(symbol);
             int originalTokenIndex = currentTokenIndex; // Guardar estado para backtracking
 
-            for (GProduction p : possibleGProductions) {
-                currentNode.appliedGProduction = p; // Tentativamente aplica esta producción
+            for (Production p : possibleProductions) {
+                currentNode.appliedProduction = p; // Tentativamente aplica esta producción
                 currentNode.children.clear(); // Limpiar hijos de intentos anteriores
                 boolean productionSuccess = true;
                 currentTokenIndex = originalTokenIndex; // Resetear índice para esta producción
@@ -65,7 +65,7 @@ public class Parser {
                     currentNode.children.addAll(potentialChildren);
                     return true;
                 }
-                currentNode.appliedGProduction = null;
+                currentNode.appliedProduction = null;
                 currentNode.children.clear();
             }
 
@@ -79,4 +79,75 @@ public class Parser {
     public DerivationNode getDerivationTree() {
         return rootNode;
     }
+
+    public List<Production> getAppliedProductionSequence() {
+        if (this.rootNode != null) {
+            return this.rootNode.getAppliedProductionSequence();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<List<String>> getLeftmostDerivationSequenceSteps() {
+        if (this.rootNode == null) {
+            return new ArrayList<>();
+        }
+
+        List<List<String>> derivationSteps = new ArrayList<>();
+        List<Production> productionSequence = this.getAppliedProductionSequence();
+
+        // 1. Estado inicial: El símbolo inicial de la gramática
+        List<String> currentForm = new ArrayList<>();
+        currentForm.add(this.grammar.startSymbol);
+        derivationSteps.add(new ArrayList<>(currentForm));
+
+        // 2. Simular la aplicación de cada producción de la secuencia
+        for (Production prodToApply : productionSequence) {
+            List<String> nextForm = new ArrayList<>();
+            String nonTerminalToReplace = prodToApply.nonTerminal;
+            boolean replaced = false;
+
+            // 3. Encontrar el no-terminal más a la izquierda para reemplazar
+            int i = 0;
+            while (i < currentForm.size()) {
+                String symbol = currentForm.get(i);
+                if (!replaced && grammar.isNonTerminal(symbol) && symbol.equals(nonTerminalToReplace)) {
+                    // Si lo Encontra Reemplazar: añadir la expansión de la producción
+                    nextForm.addAll(prodToApply.expansion); // Añadir los símbolos de la derecha de la prod.
+                    replaced = true;
+                    i++; // Avanzar el índice después del reemplazo
+                } else {
+                    // Si no es el símbolo a reemplazar, simplemente copiarlo
+                    nextForm.add(symbol);
+                    i++;
+                }
+                // Si ya reemplazamos, simplemente copiamos el resto
+                if(replaced && i < currentForm.size()) {
+                    nextForm.addAll(currentForm.subList(i, currentForm.size()));
+                    break; // Salir del while, ya copiamos el resto
+                }
+
+            } // Fin del while para encontrar y reemplazar
+
+            if (!replaced) {
+                return new ArrayList<>();
+            }
+
+            // 5. Guardar el nuevo paso y actualizar la forma actual
+            derivationSteps.add(nextForm);
+            currentForm = nextForm;
+
+        }
+        return derivationSteps;
+    }
+
+    public static String formatDerivationSequence(List<List<String>> sequenceSteps) {
+        if (sequenceSteps == null || sequenceSteps.isEmpty()) {
+            return "";
+        }
+        return sequenceSteps.stream()
+                .map(step -> String.join("", step))
+                .collect(Collectors.joining(" -> "));
+    }
+
 }

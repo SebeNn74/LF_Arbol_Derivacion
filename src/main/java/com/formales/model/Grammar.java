@@ -6,32 +6,33 @@ public class Grammar {
     Set<String> terminals;
     Set<String> nonTerminals;
     String startSymbol;
-    ArrayList<GProduction> GProductions;
-    Map<String, List<GProduction>> productionsMap;
+    ArrayList<Production> productions;
+    Map<String, List<Production>> productionsMap;
 
     public Grammar(){
         terminals = new HashSet<>();
         nonTerminals = new HashSet<>();
         startSymbol = "";
-        GProductions = new ArrayList<>();
+        productions = new ArrayList<>();
+        this.productionsMap = new HashMap<>();
     }
 
-    public Grammar(Set<String> terminals, Set<String> nonTerminals, String startSymbol, ArrayList<GProduction> GProductions) {
+    public Grammar(Set<String> terminals, Set<String> nonTerminals, String startSymbol, ArrayList<Production> productions) {
         this.terminals = terminals;
         this.nonTerminals = nonTerminals;
         this.startSymbol = startSymbol;
-        this.GProductions = GProductions;
+        this.productions = productions;
         this.productionsMap = new HashMap<>();
         indexProductions();
     }
 
     public void indexProductions() {
-        for (GProduction p : GProductions) {
+        for (Production p : productions) {
             productionsMap.computeIfAbsent(p.nonTerminal, k -> new ArrayList<>()).add(p);
         }
     }
 
-    public List<GProduction> getProductionsFor(String nonTerminal) {
+    public List<Production> getProductionsFor(String nonTerminal) {
         return productionsMap.getOrDefault(nonTerminal, Collections.emptyList());
     }
 
@@ -43,31 +44,46 @@ public class Grammar {
         return nonTerminals.contains(symbol);
     }
 
-    public Set<String> getTerminals() {
-        return terminals;
+    public boolean addTerminal(String terminalSymbol) {
+        return this.terminals.add(terminalSymbol);
     }
 
-    public Set<String> getNonTerminals() {
-        return nonTerminals;
+    public boolean addNonTerminal(String nonTerminalSymbol) {
+        return this.nonTerminals.add(nonTerminalSymbol);
+    }
+
+    public boolean setStartSymbol(String startSymbol) {
+        //Debe pertenecer a los simbolos no terminales
+        if(nonTerminals.contains(startSymbol)){
+            this.startSymbol = startSymbol;
+            return true;
+        }
+        return false;
+    }
+
+    public void addProduction(Production production) {
+        this.productions.add(production);
+    }
+
+    public String terminalsToString() {
+        return "{" + String.join(", ", terminals) + "}";
+    }
+
+    public String nonTerminalsToString() {
+        return "{" + String.join(", ", nonTerminals) + "}";
+    }
+
+    public String productionsToString(){
+        return String.join("\n",productions.stream().map(Production::toString).toList());
+    }
+
+    public String generateExplorationTreeString() {
+        List<String> lines = new ArrayList<>();
+
+        return String.join("\n", lines);
     }
 
     public String getStartSymbol() {
         return startSymbol;
-    }
-
-    public void setTerminals(Set<String> terminals) {
-        this.terminals = terminals;
-    }
-
-    public void setNonTerminals(Set<String> nonTerminals) {
-        this.nonTerminals = nonTerminals;
-    }
-
-    public void setStartSymbol(String startSymbol) {
-        this.startSymbol = startSymbol;
-    }
-
-    public void setGProductions(ArrayList<GProduction> GProductions) {
-        this.GProductions = GProductions;
     }
 }
