@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox alignment="CENTER" prefHeight="630.0" prefWidth="366.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
@@ -140,8 +139,21 @@
          <children>
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="302.0" style="-fx-background-color: lightgray;">
                <children>
-                  <Button mnemonicParsing="false" text="Añadir" />
-                  <TextField />
+                  <Label text="Palabra ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Comprobar">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <Label alignment="CENTER" prefHeight="20.0" prefWidth="170.0" text="Relación de Pertenencia" textAlignment="CENTER">

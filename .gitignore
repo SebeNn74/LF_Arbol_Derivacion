@@ -25,8 +25,8 @@ replay_pid*
 
 ### IntelliJ IDEA ###
 out/
-!src1/main/**/out/
-!src1/test/**/out/
+!src/main/**/out/
+!src/test/**/out/
 .idea/
 .idea_modules/
 *.iml
@@ -42,8 +42,8 @@ out/
 .springBeans
 .sts4-cache
 bin/
-!src1/main/**/bin/
-!src1/test/**/bin/
+!src/main/**/bin/
+!src/test/**/bin/
 
 ### NetBeans ###
 /nbproject/private/
