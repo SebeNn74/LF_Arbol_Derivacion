@@ -1,6 +1,6 @@
-package model;
+package com.formales.model;
 
-import java.util.*;
+import java.util.Set;
 
 public class GrammarChecker {
 

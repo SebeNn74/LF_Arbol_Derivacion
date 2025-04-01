@@ -1,0 +1,10 @@
+com\formales\model\Grammar.class
+com\formales\model\DerivationNode.class
+com\formales\lf_arbol_derivacion\HelloController.class
+com\formales\model\Parser.class
+module-info.class
+com\formales\view\View_FrameController.class
+com\formales\model\GProduction.class
+com\formales\lf_arbol_derivacion\HelloApplication.class
+com\formales\view\View.class
+com\formales\model\GrammarChecker.class
