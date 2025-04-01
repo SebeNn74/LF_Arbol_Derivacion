@@ -1,8 +1,7 @@
-package main.java.presenter;
+package presenter;
 
-import main.java.model.*;
-import main.java.view.*;
-import main.java.model.*;
+import model.*;
+import view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;

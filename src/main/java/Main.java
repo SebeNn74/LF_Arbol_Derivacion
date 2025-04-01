@@ -1,6 +1,4 @@
-package main.java;
-
-import main.java.presenter.Presenter;
+import presenter.Presenter;
 
 public class Main {
     public static void main(String[] args) {
