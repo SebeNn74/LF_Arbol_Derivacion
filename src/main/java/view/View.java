@@ -1,65 +1,27 @@
 package view;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import model.GProduction;
+public class View extends Application {
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Set;
-
-public class View extends JFrame {
-
-    private AppFrame frame;
-
-    public View(){
-        frame = new AppFrame();
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Frame.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("Gestión de Gramática");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    public Set<String> getTerminals(){
-        return frame.getTerminals();
-    }
-
-    public Set<String> getNonTerminals(){
-        return frame.getNonTerminals();
-    }
-
-    public String getStartSymbol(){
-        return frame.getStartSymbol();
-    }
-
-    public ArrayList<GProduction> getProductions(){
-        return frame.getProductions();
-    }
-
-    public String getCheckWord(){
-        return frame.getCheckWord();
-    }
-
-    public void setCheckWord(String word){
-        frame.setCheckWord(word);
-    }
-
-    public void setTerminals(Set<String> terminals) {
-        frame.setTerminals(terminals);
-    }
-
-    public void setNonTerminals(Set<String> nonTerminals) {
-        frame.setNonTerminals(nonTerminals);
-    }
-
-    public void setStartSymbol(String startSymbol) {
-        frame.setStartSymbol(startSymbol);
-    }
-
-    public void setGProductions(ArrayList<GProduction> GProductions) {
-        frame.setProductions(GProductions);
-    }
-
-    public void setParticularDerivationTree(String tree) {
-        frame.showDerivationTree(tree);
-    }
-
-    public AppFrame getFrame() {
-        return frame;
+    public static void main(String[] args) {
+        launch(args);
     }
 }
