@@ -8,11 +8,11 @@ import java.util.*;
 
 public class Presenter implements ActionListener {
 
-    private View view;
+    private View2Swing view;
     private GrammarChecker grammarChecker;
 
     public Presenter() {
-        view = new View();
+        view = new View2Swing();
         Set<String> terminals = new HashSet<>(Arrays.asList("a", "b"));
         Set<String> nonTerminals = new HashSet<>(Arrays.asList("S", "A", "B"));
         String startSymbol = "S";
