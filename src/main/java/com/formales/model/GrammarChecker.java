@@ -1,7 +1,6 @@
 package com.formales.model;
 
 import java.util.List;
-import java.util.Set;
 
 public class GrammarChecker {
 
@@ -10,7 +9,6 @@ public class GrammarChecker {
     private boolean belongs;
 
     public GrammarChecker() {
-        this.grammar = null;
         parser = new Parser();
         belongs = false;
     }
@@ -35,7 +33,7 @@ public class GrammarChecker {
     }
 
     public String getGeneralDerivationTree() {
-        return grammar.generateExplorationTreeString();
+        return grammar.generateSententialFormTreeString(5);
     }
 
     public void setGrammar(Grammar grammar) {

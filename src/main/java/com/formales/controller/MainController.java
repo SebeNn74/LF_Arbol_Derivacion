@@ -33,57 +33,46 @@ public class MainController implements Initializable {
     public MainController() {
         grammar = new Grammar();
         grammarChecker = new GrammarChecker();
-
-        grammar.addTerminal("a");
-        grammar.addTerminal("b");
-
-        grammar.addNonTerminal("S");
-        grammar.addNonTerminal("A");
-        grammar.addNonTerminal("B");
-
-        grammar.setStartSymbol("S");
-
-        List<String> lista1 = Arrays.asList("aSb".split(""));
-        List<String> lista2 = Arrays.asList("A".split(""));
-        List<String> lista3 = Arrays.asList("a".split(""));
-        grammar.addProduction(new Production("S", lista1));
-        grammar.addProduction(new Production("S", lista2));
-        grammar.addProduction(new Production("A", lista3));
-        grammar.indexProductions();
-
-        grammarChecker.setGrammar(grammar);
-
     }
 
     public void createGrammar() {
-        grammar.indexProductions();
-        grammarChecker.setGrammar(grammar);
-        //Muestra arbol de derivación general de la gramatica
-        taGeneralDerTree.setText(grammarChecker.getGeneralDerivationTree());
+        if(grammar.isValid()){
+            grammar.indexProductions();
+            grammarChecker.setGrammar(grammar);
+            //Muestra arbol de derivación general de la gramatica
+            taGeneralDerTree.setText(grammarChecker.getGeneralDerivationTree());
+        }
     }
 
     public void addTerminal(){
-        grammar.addTerminal(tfTerminalSym.getText());
-        taTerminals.setText(grammar.terminalsToString());
+        if(grammar.addTerminal(tfTerminalSym.getText())) {
+            taTerminals.setText(grammar.terminalsToString());
+        }
     }
 
     public void addNonTerminal(){
-        grammar.addNonTerminal(tfNonTerminalSym.getText());
-        taNonTerminals.setText(grammar.nonTerminalsToString());
+        if(grammar.addNonTerminal(tfNonTerminalSym.getText())){
+            taNonTerminals.setText(grammar.nonTerminalsToString());
+        }
     }
 
     public void setStartSymbol(){
-        if(grammar.setStartSymbol(tfInitialSym.getText())){
-            System.out.println("Inicial: "+ tfInitialSym.getText());
-        }else{
-            System.out.println("No se encuentra en los simbolos terminales");
+        if(!tfInitialSym.getText().isBlank()) {
+            if (grammar.setStartSymbol(tfInitialSym.getText())) {
+                System.out.println("Inicial: " + tfInitialSym.getText());
+            } else {
+                System.out.println("No se encuentra en los simbolos terminales");
+            }
         }
     }
 
     public void addProduction(){
-        List<String> expansion = Arrays.asList(tfProExpansion.getText().split(""));
-        grammar.addProduction(new Production(tfProductionNT.getText(), expansion));
-        taProductions.setText(grammar.productionsToString());
+        if(!tfProductionNT.getText().isBlank() && !tfProExpansion.getText().isBlank()){
+            List<String> expansion = Arrays.asList(tfProExpansion.getText().split(""));
+            if(grammar.addProduction(new Production(tfProductionNT.getText(), expansion))){
+                taProductions.setText(grammar.productionsToString());
+            }
+        }
     }
 
 

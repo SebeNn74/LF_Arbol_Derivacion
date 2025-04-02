@@ -19,4 +19,8 @@ public class Production {
     public List<String> getExpansion() {
         return expansion;
     }
+
+    public String getNonTerminal() {
+        return nonTerminal;
+    }
 }

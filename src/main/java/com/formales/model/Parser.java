@@ -76,10 +76,6 @@ public class Parser {
         return false; // Símbolo desconocido
     }
 
-    public DerivationNode getDerivationTree() {
-        return rootNode;
-    }
-
     public List<Production> getAppliedProductionSequence() {
         if (this.rootNode != null) {
             return this.rootNode.getAppliedProductionSequence();
@@ -111,7 +107,7 @@ public class Parser {
             int i = 0;
             while (i < currentForm.size()) {
                 String symbol = currentForm.get(i);
-                if (!replaced && grammar.isNonTerminal(symbol) && symbol.equals(nonTerminalToReplace)) {
+                if (grammar.isNonTerminal(symbol) && symbol.equals(nonTerminalToReplace)) {
                     // Si lo Encontra Reemplazar: añadir la expansión de la producción
                     nextForm.addAll(prodToApply.expansion); // Añadir los símbolos de la derecha de la prod.
                     replaced = true;
