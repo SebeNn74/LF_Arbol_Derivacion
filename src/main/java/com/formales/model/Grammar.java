@@ -54,6 +54,7 @@ public class Grammar {
 
     public boolean addTerminal(String terminalSymbol) {
         if(!terminalSymbol.isEmpty()){
+            //No puede ser un simbolo no terminal
             if(!nonTerminals.contains(terminalSymbol)){
                 return this.terminals.add(terminalSymbol);
             }
@@ -63,6 +64,7 @@ public class Grammar {
 
     public boolean addNonTerminal(String nonTerminalSymbol) {
         if (!nonTerminalSymbol.isEmpty()){
+            //No puede ser un simbolo terminal
             if(!terminals.contains(nonTerminalSymbol)) {
                 return this.nonTerminals.add(nonTerminalSymbol);
             }

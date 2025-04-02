@@ -3,7 +3,6 @@ module com.formales.view {
     requires javafx.fxml;
     requires javafx.web;
     requires javafx.graphics;
-    requires java.base;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -12,6 +11,7 @@ module com.formales.view {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
     opens com.formales.view to javafx.fxml;
     exports com.formales.view;

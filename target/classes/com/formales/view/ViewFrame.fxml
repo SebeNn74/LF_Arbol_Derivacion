@@ -21,7 +21,7 @@
             <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
          </padding>
          <children>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="150.0" text="Gramática" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="150.0" text="GRAMÁTICA" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -52,7 +52,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TextField fx:id="tfTerminalSym" promptText="Símbolo" />
+                        <TextField fx:id="tfTerminalSym" promptText="Símbolo T" />
                         <Button fx:id="bTerminal" mnemonicParsing="false" text="Añadir" onAction="#addTerminal"/>
                      </children>
                      <HBox.margin>
@@ -74,7 +74,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TextField fx:id="tfNonTerminalSym" promptText="Símbolo" />
+                        <TextField fx:id="tfNonTerminalSym" promptText="Símbolo NT" />
                         <Button fx:id="bNonTerminal" mnemonicParsing="false" text="Añadir" onAction="#addNonTerminal"/>
                      </children>
                      <HBox.margin>
@@ -92,7 +92,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfInitialSym" alignment="CENTER" prefHeight="26.0" prefWidth="138.0" promptText="Ingrese el símbolo inicial">
+            <TextField fx:id="tfInitialSym" alignment="CENTER" prefHeight="26.0" prefWidth="100.0" promptText="Símbolo inicial">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
@@ -113,13 +113,13 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="129.0">
                            <children>
-                              <TextField fx:id="tfProductionNT" prefWidth="60.0" promptText="Símbolo" />
+                              <TextField fx:id="tfProductionNT" prefWidth="60.0" promptText="NT" />
                               <Label prefHeight="18.0" prefWidth="27.0" text="--&gt;">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfProExpansion" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="60.0" promptText="Símbolo" />
+                              <TextField fx:id="tfProExpansion" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="60.0" promptText="T/NT" />
                            </children>
                         </HBox>
                         <Button fx:id="bProduction" mnemonicParsing="false" text="Añadir" onAction="#addProduction"/>
@@ -136,6 +136,11 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="bRebootGrammar" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Reiniciar gramática" onAction="#rebootGrammar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </left>
@@ -146,15 +151,15 @@
                <children>
                   <Label text="Palabra(W) :">
                      <font>
-                        <Font size="17.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfWordToCheck">
+                  <TextField fx:id="tfWordToCheck" promptText="Ingrese una palabra" >
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="bCheckWord" mnemonicParsing="false" text="Comprobar" onAction="#checkWord">
+                  <Button fx:id="bCheckWord" mnemonicParsing="false" text="Evaluar" onAction="#checkWord">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
